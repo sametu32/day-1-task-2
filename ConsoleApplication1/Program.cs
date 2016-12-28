@@ -12,24 +12,20 @@ namespace ConsoleApplication1
 {
     class Program
     {
-
         static void Main(string[] args)
         {
             var json = new WebClient().DownloadString("https://raw.githubusercontent.com/mhs/world-currencies/master/currencies.json");
-            Console.Write(json);
             var Doviz_listesi = JsonConvert.DeserializeObject<Bilgi[]>(json);
-            for(int i=0; i<Doviz_listesi.Length; i++)
+            foreach(Bilgi i in Doviz_listesi)
             {
-            Console.WriteLine(Doviz_listesi[i].name);
-            Console.Write(Doviz_listesi[i].symbol);
-            Console.Write(Doviz_listesi[i].cc);
+                Console.WriteLine(i.name);
+                Console.Write(i.cc);
+                Console.Write(i.symbol);
             }
             Console.Read();
         }
     }
     public class Bilgi {
-
-        
         public string cc { get; set; }
         public string symbol { get; set; }
         public string name { get; set; }
