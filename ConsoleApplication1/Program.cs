@@ -14,21 +14,24 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            var json = new WebClient().DownloadString("https://raw.githubusercontent.com/mhs/world-currencies/master/currencies.json");
-            var Doviz_listesi = JsonConvert.DeserializeObject<Bilgi[]>(json);
-            foreach(Bilgi i in Doviz_listesi)
-            {
-                Console.WriteLine(i.name);
-                Console.Write(i.cc);
-                Console.Write(i.symbol);
-            }
+            var types= new WebClient().DownloadString("http://api.fixer.io/latest?base=USD");
+            Doviz kur = JsonConvert.DeserializeObject<Doviz>(types);
+            Console.WriteLine("hangi dovizden donusum yapılacak");
+            String input = Console.ReadLine();
+            Console.WriteLine("miktari giriniz");
+            String miktar = Console.ReadLine();
+            int deger1 = int.Parse(miktar);
+            Console.WriteLine(deger1);
+            double deger2 = deger1 * (kur.Rates[input]);
+            Console.WriteLine(deger2);
             Console.Read();
         }
     }
-    public class Bilgi {
-        public string cc { get; set; }
-        public string symbol { get; set; }
-        public string name { get; set; }
+    public class Doviz {
+        public string Base { get; set; }
+        public string Date { get; set; }
+        public Dictionary<string,double>Rates; 
     }
- 
+    
 }
+ 
